@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
-import ColumnNumericTransformer from '@shared/infra/typeorm/transformers/ColumnNumericTransformer';
 
 @Entity('products')
 class Product {
@@ -18,11 +17,7 @@ class Product {
   @Column()
   name: string;
 
-  @Column('numeric', {
-    precision: 7,
-    scale: 2,
-    transformer: new ColumnNumericTransformer(),
-  })
+  @Column('numeric')
   price: number;
 
   @Column()

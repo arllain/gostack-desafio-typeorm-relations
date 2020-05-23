@@ -10,7 +10,6 @@ import {
 
 import Order from '@modules/orders/infra/typeorm/entities/Order';
 import Product from '@modules/products/infra/typeorm/entities/Product';
-import ColumnNumericTransformer from '@shared/infra/typeorm/transformers/ColumnNumericTransformer';
 
 @Entity('orders_products')
 class OrdersProducts {
@@ -21,7 +20,6 @@ class OrdersProducts {
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
-  // @ManyToMany(_ => Product, product => product.order_products)
   @ManyToOne(() => Product, product => product.order_products)
   @JoinColumn({ name: 'product_id' })
   product: Product;
@@ -32,11 +30,7 @@ class OrdersProducts {
   @Column()
   order_id: string;
 
-  @Column('numeric', {
-    precision: 7,
-    scale: 2,
-    transformer: new ColumnNumericTransformer(),
-  })
+  @Column('numeric')
   price: number;
 
   @Column()
